@@ -1,0 +1,32 @@
+.container{
+    width:100%;
+    min-height: 100px;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid cadetblue;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+}
+.title{
+    font-weight: bolder;
+    
+    
+}
+.incite{
+   width: 90%;
+}
+.picture{
+    padding: 5px;
+    object-fit: contain;
+    width: 50%;
+    height:inherit;
+}
