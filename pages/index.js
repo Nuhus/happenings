@@ -46,43 +46,34 @@ export default function Home({allnews}) {
       <div className={styles.trendingNewsContainer} >
         <div className={styles.mainTrend}>
           <div className={styles.maintTrendImage}>
-            <img src={`/newsImages/${news[0].picturesId}`} className={styles.mainTrendPic}  />
+            <img src={news[0] && `/newsImages/${news[0].picturesId}`} className={styles.mainTrendPic}  />
         </div>
         <div className={styles.mainTrendText} >
-          {news[0].newsBody}
+          {news[0] && news[0].newsBody}
         </div>
         </div>
         <div className={styles.otherTrendingContainer}>
           <div className={styles.otherTrendinItemsContainer}>
             <div className={styles.otherTrendItems}>
             <div className={styles.otherTrendingItemsImage}>
-            <img src={`/newsImages/${news[1].picturesId}`} className={styles.otherTrendPic}/>
+            <img src={news[1] && `/newsImages/${news[1].picturesId}`} className={styles.otherTrendPic}/>
             </div>
             <div className={styles.otherTrendingItemsText}>
-            {news[1].newsBody}
+            {news[1] && news[1].newsBody}
             </div>
           </div>
           </div>
           <div className={styles.otherTrendinItemsContainer}>
           <div className={styles.otherTrendItems}>
           <div className={styles.otherTrendingItemsImage}>
-            <img src={`/newsImages/${news[2].picturesId}`} className={styles.otherTrendPic} />
+            <img src={news[2] && `/newsImages/${news[2].picturesId}`} className={styles.otherTrendPic} />
             </div>
             <div className={styles.otherTrendingItemsText}>
-            {news[2].newsBody}
+            {news[2] && news[2].newsBody}
             </div>
             </div>
           </div>
-          <div className={styles.otherTrendinItemsContainer}>
-          <div className={styles.otherTrendItems}>
-          <div className={styles.otherTrendingItemsImage}>
-            <img src={`/newsImages/${news[3].picturesId}`} className={styles.otherTrendPic}/>
-            </div>
-            <div className={styles.otherTrendingItemsText}>
-            {news[3].newsBody}
-            </div>
-            </div>
-          </div>
+         
         </div>
       </div>
       <NewsLayout />        
@@ -115,6 +106,9 @@ export const getServerSideProps=async()=>{
   }
  }catch(error){
   console.log(error)
+  return{
+    notFound: true
+  }
  }
 }
 
