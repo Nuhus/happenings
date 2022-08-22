@@ -13,12 +13,7 @@ export default function AddNews(){
         formdata.append("picturesId", pic)
         formdata.append("category", cat)
         
-        /* const newsObj = {
-            title: title,
-            picturesId: "00113",
-            newsBody: "arsenal is in a red hot form"
-        } */
-        fetch("api/addNews",{
+        fetch("api/AddNews",{
             method:"POST",
             body:formdata,
             
