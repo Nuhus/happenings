@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     const upload = multer({storage})
     const apiRoute = nextConnect({
         onError(error, req, res){
-            res.status(501).json({error:`something went wrong ${error.message}`})
+            res.status(501).json({error:`somethings.. went wrong ${error.message}`})
         },
         onNoMatch(req, res){
             res.status(405).json({error:`method not allowed`})
