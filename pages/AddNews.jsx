@@ -16,7 +16,6 @@ export default function AddNews(){
         fetch("api/AddNews",{
             method:"POST",
             body:formdata,
-            
         })
         .then((response)=>{
             response.json()
