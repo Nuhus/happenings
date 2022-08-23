@@ -1,37 +1,29 @@
 import connectDb from "../../utils/dbConnection";
 import { newsModel } from "../../utils/models/newsmodel";
-import nextConnect from "next-connect";
-const multer = require('multer')
+var mv = require('mv')
 let path = require('path')
+import {IncomingForm} from "formidable";
 
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, './public/newsImages')
-    },
-    filename: function(req, file, cb){
-        cb(null, Date.now()+path.extname(file.originalname))
-    }
-})
-    const upload = multer({storage})
-    const apiRoute = nextConnect({
-        onError(error, req, res){
-            res.status(501).json({error:`somethings.. went wrong ${error.message}`})
-        },
-        onNoMatch(req, res){
-            res.status(405).json({error:`method not allowed`})
-        }
-    })
-    apiRoute.use(upload.single("picturesId"))
-    apiRoute.post((req, res)=>{
-        connectDb()
+export default async (req, res)=>{
+    try{
+        const form = new IncomingForm()
+        form.parse(req, (err, fields, files) => {
+            if(err) console.log(err)
+            const oldpath = files.picturesId.filepath
+            const now = Date.now();
+            const extension = path.extname(files.picturesId.originalFilename)
+            const fileName = now + extension
+            const newPath = "./public/newsImages/" + now + extension
+            mv(oldpath, newPath, (()=>{
+                connectDb()
     .then(()=>{
         console.log("connected successfully")
         const newsObj = {
-            title: req.body.title,
-            newsBody: req.body.newsBody,
-            picturesId: req.file.filename,
-            category:req.body.category
+            title:fields.title,
+            newsBody: fields.newsBody,
+            picturesId: fileName,
+            category:fields.category
         }
         newsModel.create(newsObj)
         .then((resp)=>{
@@ -46,10 +38,14 @@ const storage = multer.diskStorage({
     .catch((error)=>{
         console.log(error)
     })
-    })
-    export default apiRoute
-    export const config ={
-        api:{
-            bodyParser: false
-        }
+            }))
+        })
+    }catch(err){
+        console.log(err)
     }
+}
+export const config ={
+    api:{
+        bodyParser: false
+    }
+}

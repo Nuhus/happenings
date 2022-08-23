@@ -13,7 +13,7 @@ export default function AddNews(){
         formdata.append("picturesId", pic)
         formdata.append("category", cat)
         
-        fetch("api/AddNews",{
+        fetch("api/addNews",{
             method:"POST",
             body:formdata,
         })
